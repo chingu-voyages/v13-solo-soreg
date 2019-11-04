@@ -81,7 +81,35 @@ export const ModalWrapper = styled.div`
     max-height: calc(80vh - 80px);
     background: #fff;
     max-width: 400px;
-    padding: 20px 0;
+    padding: 5px 0 20px;
+`;
+
+export const ModalCloseIcon = styled.div`
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+
+    &:before,
+    &:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: 50%;
+        height: 2px;
+        width: 20px;
+        background: ${props => props.theme.header.modalCLoseIcon};
+    }
+
+    &:before {
+        transform: translate(50%, -50%) rotate(45deg);
+    }
+
+    &:after {
+        transform: translate(50%, -50%) rotate(-45deg);
+    }
 `;
 
 export const ModalHeadline = styled.div`

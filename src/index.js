@@ -13,7 +13,8 @@ const theme = {
         brown: "#B1A296"
     },
     header: {
-        fg: "#fff"
+        fg: "#fff",
+        modalCLoseIcon: "#656565"
     }
 };
 

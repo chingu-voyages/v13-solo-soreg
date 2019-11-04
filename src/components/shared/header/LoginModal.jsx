@@ -6,7 +6,8 @@ import {
     ModalHeadline,
     ModalForm,
     ModalInput,
-    ModalLoginButton
+    ModalLoginButton,
+    ModalCloseIcon
 } from "./styles";
 
 export default class LoginModal extends Component {
@@ -44,6 +45,7 @@ export default class LoginModal extends Component {
             <ModalContainer active={active}>
                 <Overlay onClick={closeModal} />
                 <ModalWrapper>
+                    <ModalCloseIcon onClick={closeModal} />
                     <ModalHeadline>Login</ModalHeadline>
                     <ModalForm onSubmit={this.onSubmit}>
                         <ModalInput
