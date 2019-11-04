@@ -14,7 +14,7 @@ const sizes = {
     xl: `${sizesRaw.xl}px`
 };
 
-const breakpoint = size => {
+const breakpoints = size => {
     return sizes[size];
 };
 
@@ -22,4 +22,4 @@ const breakpointsRaw = size => {
     return sizesRaw[size];
 };
 
-export { getPageSize, breakpoint, breakpointsRaw };
+export { breakpoints, breakpointsRaw };
