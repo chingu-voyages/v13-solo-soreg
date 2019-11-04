@@ -8,7 +8,7 @@ export default class Header extends Component {
         super(props);
 
         this.state = {
-            modalOpen: true
+            modalOpen: false
         };
 
         this.openModal = this.openModal.bind(this);
