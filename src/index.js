@@ -5,8 +5,16 @@ import { ThemeProvider } from "styled-components";
 import Header from "./components/shared/header/Header";
 
 const theme = {
+    primary: {
+        grey: "#5D5C61",
+        green: "#379683",
+        lightblue: "#7395AE",
+        darkblue: "#557a95",
+        brown: "#B1A296"
+    },
     header: {
-        bg: "#557a95"
+        fg: "#fff",
+        modalCLoseIcon: "#656565"
     }
 };
 
