@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import styled from "styled-components";
 
 // Signup
@@ -43,27 +44,74 @@ const Submit = styled.button`
     color: white;
 `;
 
-const onSubmit = e => {
-    e.preventDefault();
-};
+class Signup extends React.Component {
+    constructor(props) {
+        super(props);
 
-const Signup = () => {
-    return (
-        <Form onSubmit={onSubmit}>
-            <Title>Sign up</Title>
-            <InputsWrapper>
-                <Input name="name" type="text" placeholder="name" required />
-                <Input name="email" type="email" placeholder="email" required />
-                <Input
-                    name="password"
-                    type="password"
-                    placeholder="password"
-                    required
-                />
-            </InputsWrapper>
-            <Submit>Sign up</Submit>
-        </Form>
-    );
-};
+        this.state = {
+            name: "",
+            email: "",
+            password: ""
+        };
+
+        this.onInputChange = this.onInputChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    onInputChange(e) {
+        const { name, value } = e.target;
+
+        this.setState({
+            [name]: value
+        });
+    }
+
+    onSubmit(e) {
+        e.preventDefault();
+        const { name, email, password } = this.state;
+
+        axios
+            .post("users/register", {
+                name,
+                email,
+                password
+            })
+            .then(response => {
+                console.log(response);
+            });
+    }
+
+    render() {
+        return (
+            <Form onSubmit={this.onSubmit}>
+                <Title>Sign up</Title>
+                <InputsWrapper>
+                    <Input
+                        name="name"
+                        type="text"
+                        placeholder="name"
+                        required
+                        onChange={this.onInputChange}
+                    />
+                    <Input
+                        name="email"
+                        type="email"
+                        placeholder="email"
+                        required
+                        onChange={this.onInputChange}
+                    />
+                    <Input
+                        name="password"
+                        type="password"
+                        placeholder="password"
+                        required
+                        onChange={this.onInputChange}
+                    />
+                </InputsWrapper>
+                <Submit>Sign up</Submit>
+            </Form>
+        );
+    }
+}
 
 export default Signup;
