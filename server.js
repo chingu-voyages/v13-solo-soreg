@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const app = express();
+const path = require("path");
 const mongoose = require("mongoose");
 const port = process.env.PORT || 3001;
 
@@ -22,6 +23,7 @@ mongoose
 
 const Users = require("./routes/Users");
 
+app.use("/", express.static(path.join(__dirname, "dist")));
 app.use("/users", Users);
 
 app.listen(port, () => console.log("Listening on Port ", port));
