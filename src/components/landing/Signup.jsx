@@ -1,4 +1,5 @@
 import React from "react";
+import { Post } from "../shared/helpers/fetch";
 import styled from "styled-components";
 
 // Signup
@@ -69,17 +70,14 @@ class Signup extends React.Component {
         e.preventDefault();
         const { name, email, password } = this.state;
 
-        fetch("users/register", {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify({
-                name,
-                email,
-                password
-            })
-        })
+        const url = "/users/register";
+        const body = {
+            name,
+            email,
+            password
+        };
+
+        Post(url, body)
             .then(response => {
                 if (response.status >= 400) {
                     throw new Error("Bad response from server");
