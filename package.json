@@ -32,7 +32,6 @@
     "webpack": "^4.41.2"
   },
   "dependencies": {
-    "axios": "^0.19.0",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "concurrently": "^5.0.0",
@@ -52,6 +51,5 @@
     "styled-components": "^4.4.1",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.9.0"
-  },
-  "proxy": "http://localhost:8080"
+  }
 }

@@ -28,7 +28,13 @@ module.exports = {
         extensions: [".js", ".jsx"]
     },
     devServer: {
-        historyApiFallback: true
+        historyApiFallback: true,
+        proxy: {
+            "/users": {
+                target: "http://localhost:3001",
+                secure: false
+            }
+        }
     },
     plugins: [
         new HtmlWebPackPlugin({

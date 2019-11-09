@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import styled from "styled-components";
 
 // Signup
@@ -70,14 +69,28 @@ class Signup extends React.Component {
         e.preventDefault();
         const { name, email, password } = this.state;
 
-        axios
-            .post("users/register", {
+        fetch("users/register", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({
                 name,
                 email,
                 password
             })
+        })
             .then(response => {
-                console.log(response);
+                if (response.status >= 400) {
+                    throw new Error("Bad response from server");
+                }
+                return response.json();
+            })
+            .then(json => {
+                console.log(json);
+            })
+            .catch(err => {
+                console.error(err);
             });
     }
 
