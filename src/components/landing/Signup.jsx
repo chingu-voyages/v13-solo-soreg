@@ -6,6 +6,7 @@ import styled from "styled-components";
 const Form = styled.form`
     border: 1px solid #ccc;
     padding: 20px 30px;
+    width: 250px;
 `;
 
 const InputsWrapper = styled.div`
@@ -44,6 +45,14 @@ const Submit = styled.button`
     color: white;
 `;
 
+const ErrorMessage = styled.div`
+    text-align: center;
+    color: #ca3535;
+    font-style: italic;
+    font-weight: bold;
+    margin-top: 10px;
+`;
+
 class Signup extends React.Component {
     constructor(props) {
         super(props);
@@ -51,7 +60,8 @@ class Signup extends React.Component {
         this.state = {
             name: "",
             email: "",
-            password: ""
+            password: "",
+            error: null
         };
 
         this.onInputChange = this.onInputChange.bind(this);
@@ -85,7 +95,11 @@ class Signup extends React.Component {
                 return response.json();
             })
             .then(json => {
-                console.log(json);
+                // Set or clear error
+                const error = json.error || null;
+                this.setState({
+                    error
+                });
             })
             .catch(err => {
                 console.error(err);
@@ -93,6 +107,10 @@ class Signup extends React.Component {
     }
 
     render() {
+        const { error } = this.state;
+
+        console.log(error);
+
         return (
             <Form onSubmit={this.onSubmit}>
                 <Title>Sign up</Title>
@@ -119,6 +137,9 @@ class Signup extends React.Component {
                         onChange={this.onInputChange}
                     />
                 </InputsWrapper>
+
+                {error && <ErrorMessage>{error}</ErrorMessage>}
+
                 <Submit>Sign up</Submit>
             </Form>
         );

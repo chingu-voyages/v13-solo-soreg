@@ -142,3 +142,11 @@ export const ModalLoginButton = styled(LoginSignupButton)`
         box-shadow: none;
     }
 `;
+
+export const ErrorMessage = styled.div`
+    text-align: center;
+    color: #ca3535;
+    font-style: italic;
+    font-weight: bold;
+    margin-bottom: 10px;
+`;
