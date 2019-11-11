@@ -109,8 +109,6 @@ class Signup extends React.Component {
     render() {
         const { error } = this.state;
 
-        console.log(error);
-
         return (
             <Form onSubmit={this.onSubmit}>
                 <Title>Sign up</Title>
