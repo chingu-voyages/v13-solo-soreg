@@ -1,11 +1,13 @@
 {
   "name": "online-personal-diary",
   "version": "1.0.0",
-  "description": "",
+  "description": "nodemon server.js",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "webpack-dev-server --open --mode development",
+    "server": "nodemon server.js",
+    "client": "webpack-dev-server --open --mode development",
+    "dev": "concurrently \"npm run server\" \"npm run client",
     "build": "webpack -p",
     "heroku-postbuild": "npm run build"
   },
@@ -30,8 +32,18 @@
     "webpack": "^4.41.2"
   },
   "dependencies": {
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "concurrently": "^5.0.0",
+    "cors": "^2.8.5",
     "css-loader": "^3.2.0",
     "express": "^4.17.1",
+    "http-proxy-middleware": "^0.20.0",
+    "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^2.2.0",
+    "mongodb": "^3.3.3",
+    "mongoose": "^5.7.9",
+    "nodemon": "^1.19.4",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-router-dom": "^5.1.2",

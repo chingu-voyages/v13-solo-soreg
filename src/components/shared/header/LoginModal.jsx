@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Post } from "../helpers/fetch";
 import {
     Overlay,
     ModalWrapper,
@@ -33,8 +34,27 @@ export default class LoginModal extends Component {
 
     onSubmit(e) {
         e.preventDefault();
+        const { email, password } = this.state;
 
-        console.log(this.state);
+        const url = "/users/login";
+        const body = {
+            email,
+            password
+        };
+
+        Post(url, body)
+            .then(response => {
+                if (response.status >= 400) {
+                    throw new Error("Bad response from server");
+                }
+                return response.json();
+            })
+            .then(json => {
+                console.log(json);
+            })
+            .catch(err => {
+                console.error(err);
+            });
     }
 
     render() {
