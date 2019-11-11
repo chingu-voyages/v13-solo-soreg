@@ -29,12 +29,22 @@ const TextArea = styled.textarea`
     resize: none;
 `;
 
-const DiaryEditor = () => {
+const DiaryEditor = ({ title, text, onChange } = props) => {
     return (
         <Wrapper>
             <EditorWrapper>
-                <TitleInput placeholder="Title" />
-                <TextArea placeholder="Entry" />
+                <TitleInput
+                    name="title"
+                    placeholder="Title"
+                    value={title}
+                    onChange={onChange}
+                />
+                <TextArea
+                    name="text"
+                    placeholder="Entry"
+                    value={text}
+                    onChange={onChange}
+                />
             </EditorWrapper>
         </Wrapper>
     );
