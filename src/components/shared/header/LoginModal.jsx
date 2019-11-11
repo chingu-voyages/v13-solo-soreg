@@ -8,7 +8,8 @@ import {
     ModalForm,
     ModalInput,
     ModalLoginButton,
-    ModalCloseIcon
+    ModalCloseIcon,
+    ErrorMessage
 } from "./styles";
 
 export default class LoginModal extends Component {
@@ -17,7 +18,8 @@ export default class LoginModal extends Component {
 
         this.state = {
             email: "",
-            password: ""
+            password: "",
+            error: null
         };
 
         this.onInputChange = this.onInputChange.bind(this);
@@ -50,7 +52,11 @@ export default class LoginModal extends Component {
                 return response.json();
             })
             .then(json => {
-                console.log(json);
+                // Set or clear error
+                const error = json.error || null;
+                this.setState({
+                    error
+                });
             })
             .catch(err => {
                 console.error(err);
@@ -58,7 +64,7 @@ export default class LoginModal extends Component {
     }
 
     render() {
-        const { email, password } = this.state;
+        const { email, password, error } = this.state;
         const { active, closeModal } = this.props;
 
         return (
@@ -84,6 +90,7 @@ export default class LoginModal extends Component {
                             onChange={this.onInputChange}
                             required
                         />
+                        {error && <ErrorMessage>{error}</ErrorMessage>}
                         <ModalLoginButton type="submit">Login</ModalLoginButton>
                     </ModalForm>
                 </ModalWrapper>
