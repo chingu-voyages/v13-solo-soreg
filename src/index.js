@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./reset.css";
 import { ThemeProvider } from "styled-components";
-import Header from "./components/shared/header/Header";
+import ContentWrapper from "./components/ContentWrapper";
 import Landing from "./components/landing/Landing";
 
 const theme = {
@@ -21,8 +21,7 @@ const theme = {
 
 ReactDOM.render(
     <ThemeProvider theme={theme}>
-        <Header />
-        <Landing />
+        <ContentWrapper children={<Landing />} />
     </ThemeProvider>,
     document.querySelector("#app")
 );
