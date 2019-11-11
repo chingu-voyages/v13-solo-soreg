@@ -33,7 +33,11 @@ export default class ContentWrapper extends React.Component {
                 <Header auth={auth} />
                 <Wrapper>
                     {/* Temp - will be handled dynamically in a later update */}
-                    {auth && auth.loggedIn ? <Diary /> : childrenWithProps}
+                    {auth && auth.loggedIn ? (
+                        <Diary auth={auth} />
+                    ) : (
+                        childrenWithProps
+                    )}
                 </Wrapper>
             </div>
         );
