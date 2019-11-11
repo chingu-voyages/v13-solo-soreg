@@ -86,6 +86,7 @@ export default class LoginModal extends Component {
                             placeholder="email"
                             onChange={this.onInputChange}
                             required
+                            autoComplete="login_email"
                         />
                         <ModalInput
                             name="password"
@@ -94,6 +95,7 @@ export default class LoginModal extends Component {
                             placeholder="Password"
                             onChange={this.onInputChange}
                             required
+                            autoComplete="login_password"
                         />
                         {error && <ErrorMessage>{error}</ErrorMessage>}
                         <ModalLoginButton type="submit">Login</ModalLoginButton>

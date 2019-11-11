@@ -1,6 +1,14 @@
 import React from "react";
+import Diary from "./diary/Index";
 import Header from "./shared/header/Header";
 import AuthHelper from "./auth/AuthHelper";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+    justify-content: center;
+    height: calc(100vh - 80px);
+    width: 100%;
+`;
 
 export default class ContentWrapper extends React.Component {
     constructor(props) {
@@ -23,7 +31,10 @@ export default class ContentWrapper extends React.Component {
         return (
             <div>
                 <Header auth={auth} />
-                {childrenWithProps}
+                <Wrapper>
+                    {/* Temp - will be handled dynamically in a later update */}
+                    {auth && auth.loggedIn ? <Diary /> : childrenWithProps}
+                </Wrapper>
             </div>
         );
     }
