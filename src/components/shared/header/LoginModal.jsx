@@ -60,6 +60,7 @@ export default class LoginModal extends Component {
 
                 if (!json.error) {
                     localStorage.setItem("personaldiary_token", json);
+                    window.location.reload();
                 }
             })
             .catch(err => {
