@@ -12,8 +12,6 @@ export default class ContentWrapper extends React.Component {
         };
     }
 
-    componentDidMount() {}
-
     render() {
         const { auth } = this.state;
         const { children } = this.props;
@@ -24,7 +22,7 @@ export default class ContentWrapper extends React.Component {
 
         return (
             <div>
-                <Header />
+                <Header auth={auth} />
                 {childrenWithProps}
             </div>
         );

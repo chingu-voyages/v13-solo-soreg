@@ -13,6 +13,7 @@ export default class Header extends Component {
 
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
+        this.doSignOut = this.doSignOut.bind(this);
     }
 
     openModal() {
@@ -27,16 +28,29 @@ export default class Header extends Component {
         });
     }
 
+    doSignOut() {
+        localStorage.removeItem("personaldiary_token");
+
+        window.location.reload();
+    }
+
     render() {
         const { modalOpen } = this.state;
+        const { auth } = this.props;
 
         return (
             <Wrapper>
                 <Container>
                     <Logo>Online Personal Diary</Logo>
-                    <LoginSignupButton onClick={this.openModal}>
-                        Log in
-                    </LoginSignupButton>
+                    {auth && auth.loggedIn ? (
+                        <LoginSignupButton onClick={this.doSignOut}>
+                            Sign out
+                        </LoginSignupButton>
+                    ) : (
+                        <LoginSignupButton onClick={this.openModal}>
+                            Log in
+                        </LoginSignupButton>
+                    )}
                 </Container>
                 <LoginModal active={modalOpen} closeModal={this.closeModal} />
             </Wrapper>
