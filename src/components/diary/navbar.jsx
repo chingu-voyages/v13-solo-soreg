@@ -19,6 +19,23 @@ const NavbarTitle = styled.div`
     text-transform: uppercase;
 `;
 
+const CreateButton = styled.div`
+    padding: 15px 10px;
+    background: #d0d0d0;
+    border-top: 1px solid #fff;
+    border-right: 1px solid #fff;
+    cursor: pointer;
+    transition: all ease 0.1s;
+
+    &:hover {
+        background: #f3f3f3;
+    }
+
+    &:last-of-type {
+        border-bottom: 1px solid #fff;
+    }
+`;
+
 const Entry = styled.div`
     padding: 15px 10px;
     background: #a2a2a2;
@@ -36,13 +53,14 @@ const Entry = styled.div`
     }
 `;
 
-const Navbar = ({ entries, onEntryPick } = props) => {
+const Navbar = ({ entries, onEntryPick, addNewEntry } = props) => {
     return (
         <NavbarWrapper>
             <NavbarTitle>Your entries</NavbarTitle>
+            <CreateButton onClick={addNewEntry}>Create new entry</CreateButton>
             {entries &&
                 entries.map(entry => (
-                    <Entry key={entry.title} onClick={() => onEntryPick(entry)}>
+                    <Entry key={entry.id} onClick={() => onEntryPick(entry)}>
                         {entry.title}
                     </Entry>
                 ))}

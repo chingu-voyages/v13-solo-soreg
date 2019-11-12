@@ -3,6 +3,7 @@ const users = express.Router();
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const ObjectID = require("mongodb").ObjectID;
 
 const User = require("../models/User");
 users.use(cors());
@@ -80,6 +81,32 @@ users.post("/getUserEntries", (req, res) => {
         email: req.body.email
     })
         .then(user => {
+            res.json({
+                entries: user.entries
+            });
+        })
+        .catch(err => {
+            res.send("error: " + err);
+        });
+});
+
+users.post("/createEntry", (req, res) => {
+    const id = new ObjectID();
+
+    const entryData = {
+        id,
+        title: req.body.entry.title,
+        text: req.body.entry.text
+    };
+
+    User.findOne({
+        email: req.body.email
+    })
+        .then(user => {
+            const newEntries = user.entries.push(entryData);
+            user.update({ entries: newEntries });
+            user.save();
+
             res.json({
                 entries: user.entries
             });

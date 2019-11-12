@@ -21,6 +21,7 @@ class Diary extends React.Component {
             entries: null
         };
 
+        this.addNewEntry = this.addNewEntry.bind(this);
         this.onInputChange = this.onInputChange.bind(this);
         this.submitEntry = debounce(this.submitEntry.bind(this), 500);
         this.onEntryPick = this.onEntryPick.bind(this);
@@ -34,6 +35,35 @@ class Diary extends React.Component {
         const url = "users/getUserEntries";
         const body = {
             email
+        };
+
+        Post(url, body)
+            .then(response => {
+                if (response.status >= 400) {
+                    throw new Error("Bad response from server");
+                }
+                return response.json();
+            })
+            .then(json => {
+                this.setState({
+                    entries: json.entries
+                });
+            })
+            .catch(err => console.error(err));
+    }
+
+    addNewEntry() {
+        const {
+            auth: { email }
+        } = this.props;
+
+        const url = "users/createEntry";
+        const body = {
+            email,
+            entry: {
+                title: "New title",
+                text: ""
+            }
         };
 
         Post(url, body)
@@ -87,17 +117,17 @@ class Diary extends React.Component {
             }
         };
 
-        Post(url, body)
-            .then(response => {
-                if (response.status >= 400) {
-                    throw new Error("Bad response from server");
-                }
-                return response.json();
-            })
-            .then(json => {
-                console.log(json);
-            })
-            .catch(err => console.error(err));
+        // Post(url, body)
+        //     .then(response => {
+        //         if (response.status >= 400) {
+        //             throw new Error("Bad response from server");
+        //         }
+        //         return response.json();
+        //     })
+        //     .then(json => {
+        //         console.log(json);
+        //     })
+        //     .catch(err => console.error(err));
     }
 
     render() {
@@ -105,7 +135,11 @@ class Diary extends React.Component {
 
         return (
             <Wrapper>
-                <Navbar entries={entries} onEntryPick={this.onEntryPick} />
+                <Navbar
+                    entries={entries}
+                    onEntryPick={this.onEntryPick}
+                    addNewEntry={this.addNewEntry}
+                />
                 <Editor
                     title={title}
                     text={text}
