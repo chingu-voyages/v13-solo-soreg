@@ -147,7 +147,6 @@ class Diary extends React.Component {
                     text
                 }
             };
-
             Post(url, body)
                 .then(response => {
                     if (response.status >= 400) {
@@ -156,7 +155,9 @@ class Diary extends React.Component {
                     return response.json();
                 })
                 .then(json => {
-                    console.log(json);
+                    this.setState({
+                        entries: json.entries
+                    });
                 })
                 .catch(err => console.error(err));
         }

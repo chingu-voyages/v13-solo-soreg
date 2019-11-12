@@ -130,8 +130,8 @@ users.post("/postEntry", (req, res) => {
             const index = user.entries.findIndex(
                 x => x.id == req.body.entry.id
             );
-            const newEntries = (user.entries[index] = entryData);
-            user.update({ entries: newEntries });
+            user.entries.splice(index, 1, entryData);
+
             user.save();
 
             res.json({
