@@ -16,6 +16,7 @@ class Diary extends React.Component {
         super(props);
 
         this.state = {
+            id: null,
             title: "",
             text: "",
             entries: null
@@ -104,30 +105,34 @@ class Diary extends React.Component {
     }
 
     submitEntry() {
-        const { title, text } = this.state;
-        const {
-            auth: { email }
-        } = this.props;
-        const url = "users/postEntry";
-        const body = {
-            email,
-            entry: {
-                title,
-                text
-            }
-        };
+        const { id, title, text } = this.state;
 
-        // Post(url, body)
-        //     .then(response => {
-        //         if (response.status >= 400) {
-        //             throw new Error("Bad response from server");
-        //         }
-        //         return response.json();
-        //     })
-        //     .then(json => {
-        //         console.log(json);
-        //     })
-        //     .catch(err => console.error(err));
+        if (id) {
+            const {
+                auth: { email }
+            } = this.props;
+            const url = "users/postEntry";
+            const body = {
+                email,
+                entry: {
+                    id,
+                    title,
+                    text
+                }
+            };
+
+            Post(url, body)
+                .then(response => {
+                    if (response.status >= 400) {
+                        throw new Error("Bad response from server");
+                    }
+                    return response.json();
+                })
+                .then(json => {
+                    console.log(json);
+                })
+                .catch(err => console.error(err));
+        }
     }
 
     render() {
