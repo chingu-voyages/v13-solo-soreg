@@ -26,6 +26,7 @@ class Diary extends React.Component {
         this.onInputChange = this.onInputChange.bind(this);
         this.submitEntry = debounce(this.submitEntry.bind(this), 500);
         this.onEntryPick = this.onEntryPick.bind(this);
+        this.deleteEntry = this.deleteEntry.bind(this);
     }
 
     componentDidMount() {
@@ -65,6 +66,32 @@ class Diary extends React.Component {
                 title: "New title",
                 text: ""
             }
+        };
+
+        Post(url, body)
+            .then(response => {
+                if (response.status >= 400) {
+                    throw new Error("Bad response from server");
+                }
+                return response.json();
+            })
+            .then(json => {
+                this.setState({
+                    entries: json.entries
+                });
+            })
+            .catch(err => console.error(err));
+    }
+
+    deleteEntry(entry) {
+        const {
+            auth: { email }
+        } = this.props;
+
+        const url = "users/deleteEntry";
+        const body = {
+            email,
+            entryId: entry.id
         };
 
         Post(url, body)
@@ -144,6 +171,7 @@ class Diary extends React.Component {
                     entries={entries}
                     onEntryPick={this.onEntryPick}
                     addNewEntry={this.addNewEntry}
+                    deleteEntry={this.deleteEntry}
                 />
                 <Editor
                     title={title}

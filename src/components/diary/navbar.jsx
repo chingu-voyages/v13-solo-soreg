@@ -37,31 +37,54 @@ const CreateButton = styled.div`
 `;
 
 const Entry = styled.div`
-    padding: 15px 10px;
+    display: flex;
+    align-items: center;
     background: #a2a2a2;
     border-top: 1px solid #fff;
     border-right: 1px solid #fff;
     cursor: pointer;
-    transition: all ease 0.1s;
-
-    &:hover {
-        background: #c3c3c3;
-    }
 
     &:last-of-type {
         border-bottom: 1px solid #fff;
     }
 `;
 
-const Navbar = ({ entries, onEntryPick, addNewEntry } = props) => {
+const EntryTitle = styled.div`
+    flex: 3;
+    padding: 15px 10px;
+    transition: all ease 0.1s;
+
+    &:hover {
+        background: #c3c3c3;
+    }
+`;
+
+const EntryDelete = styled.div`
+    flex: 1;
+    padding: 15px 10px;
+    height: 100%;
+    border-left: 1px solid #fff;
+    transition: all ease 0.1s;
+
+    &:hover {
+        background: #e9b19e;
+    }
+`;
+
+const Navbar = ({ entries, onEntryPick, addNewEntry, deleteEntry } = props) => {
     return (
         <NavbarWrapper>
             <NavbarTitle>Your entries</NavbarTitle>
             <CreateButton onClick={addNewEntry}>Create new entry</CreateButton>
             {entries &&
                 entries.map(entry => (
-                    <Entry key={entry.id} onClick={() => onEntryPick(entry)}>
-                        {entry.title}
+                    <Entry key={entry.id}>
+                        <EntryTitle onClick={() => onEntryPick(entry)}>
+                            {entry.title}
+                        </EntryTitle>
+                        <EntryDelete onClick={() => deleteEntry(entry)}>
+                            Delete
+                        </EntryDelete>
                     </Entry>
                 ))}
         </NavbarWrapper>

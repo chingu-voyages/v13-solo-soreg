@@ -143,4 +143,23 @@ users.post("/postEntry", (req, res) => {
         });
 });
 
+users.post("/deleteEntry", (req, res) => {
+    User.findOne({
+        email: req.body.email
+    })
+        .then(user => {
+            user.entries = user.entries.filter(
+                entry => entry.id != req.body.entryId
+            );
+            user.save();
+
+            res.json({
+                entries: user.entries
+            });
+        })
+        .catch(err => {
+            res.send("error: " + err);
+        });
+});
+
 module.exports = users;
