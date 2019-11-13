@@ -3,6 +3,7 @@ const users = express.Router();
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const ObjectID = require("mongodb").ObjectID;
 
 const User = require("../models/User");
 users.use(cors());
@@ -89,8 +90,11 @@ users.post("/getUserEntries", (req, res) => {
         });
 });
 
-users.post("/postEntry", (req, res) => {
+users.post("/createEntry", (req, res) => {
+    const id = new ObjectID();
+
     const entryData = {
+        id,
         title: req.body.entry.title,
         text: req.body.entry.text
     };
@@ -99,9 +103,59 @@ users.post("/postEntry", (req, res) => {
         email: req.body.email
     })
         .then(user => {
-            const newEntries = user.entries.push(entryData);
+            const newEntries = user.entries.splice(0, 0, entryData);
             user.update({ entries: newEntries });
             user.save();
+
+            res.json({
+                entries: user.entries
+            });
+        })
+        .catch(err => {
+            res.send("error: " + err);
+        });
+});
+
+users.post("/postEntry", (req, res) => {
+    const entryData = {
+        id: req.body.entry.id,
+        title: req.body.entry.title,
+        text: req.body.entry.text
+    };
+
+    User.findOne({
+        email: req.body.email
+    })
+        .then(user => {
+            const index = user.entries.findIndex(
+                x => x.id == req.body.entry.id
+            );
+            user.entries.splice(index, 1, entryData);
+
+            user.save();
+
+            res.json({
+                entries: user.entries
+            });
+        })
+        .catch(err => {
+            res.send("error: " + err);
+        });
+});
+
+users.post("/deleteEntry", (req, res) => {
+    User.findOne({
+        email: req.body.email
+    })
+        .then(user => {
+            user.entries = user.entries.filter(
+                entry => entry.id != req.body.entryId
+            );
+            user.save();
+
+            res.json({
+                entries: user.entries
+            });
         })
         .catch(err => {
             res.send("error: " + err);

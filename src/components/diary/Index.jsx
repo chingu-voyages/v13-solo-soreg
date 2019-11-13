@@ -16,14 +16,17 @@ class Diary extends React.Component {
         super(props);
 
         this.state = {
+            id: null,
             title: "",
             text: "",
             entries: null
         };
 
+        this.addNewEntry = this.addNewEntry.bind(this);
         this.onInputChange = this.onInputChange.bind(this);
         this.submitEntry = debounce(this.submitEntry.bind(this), 500);
         this.onEntryPick = this.onEntryPick.bind(this);
+        this.deleteEntry = this.deleteEntry.bind(this);
     }
 
     componentDidMount() {
@@ -34,6 +37,61 @@ class Diary extends React.Component {
         const url = "users/getUserEntries";
         const body = {
             email
+        };
+
+        Post(url, body)
+            .then(response => {
+                if (response.status >= 400) {
+                    throw new Error("Bad response from server");
+                }
+                return response.json();
+            })
+            .then(json => {
+                this.setState({
+                    entries: json.entries
+                });
+            })
+            .catch(err => console.error(err));
+    }
+
+    addNewEntry() {
+        const {
+            auth: { email }
+        } = this.props;
+
+        const url = "users/createEntry";
+        const body = {
+            email,
+            entry: {
+                title: "New title",
+                text: ""
+            }
+        };
+
+        Post(url, body)
+            .then(response => {
+                if (response.status >= 400) {
+                    throw new Error("Bad response from server");
+                }
+                return response.json();
+            })
+            .then(json => {
+                this.setState({
+                    entries: json.entries
+                });
+            })
+            .catch(err => console.error(err));
+    }
+
+    deleteEntry(entry) {
+        const {
+            auth: { email }
+        } = this.props;
+
+        const url = "users/deleteEntry";
+        const body = {
+            email,
+            entryId: entry.id
         };
 
         Post(url, body)
@@ -74,30 +132,35 @@ class Diary extends React.Component {
     }
 
     submitEntry() {
-        const { title, text } = this.state;
-        const {
-            auth: { email }
-        } = this.props;
-        const url = "users/postEntry";
-        const body = {
-            email,
-            entry: {
-                title,
-                text
-            }
-        };
+        const { id, title, text } = this.state;
 
-        Post(url, body)
-            .then(response => {
-                if (response.status >= 400) {
-                    throw new Error("Bad response from server");
+        if (id) {
+            const {
+                auth: { email }
+            } = this.props;
+            const url = "users/postEntry";
+            const body = {
+                email,
+                entry: {
+                    id,
+                    title,
+                    text
                 }
-                return response.json();
-            })
-            .then(json => {
-                console.log(json);
-            })
-            .catch(err => console.error(err));
+            };
+            Post(url, body)
+                .then(response => {
+                    if (response.status >= 400) {
+                        throw new Error("Bad response from server");
+                    }
+                    return response.json();
+                })
+                .then(json => {
+                    this.setState({
+                        entries: json.entries
+                    });
+                })
+                .catch(err => console.error(err));
+        }
     }
 
     render() {
@@ -105,7 +168,12 @@ class Diary extends React.Component {
 
         return (
             <Wrapper>
-                <Navbar entries={entries} onEntryPick={this.onEntryPick} />
+                <Navbar
+                    entries={entries}
+                    onEntryPick={this.onEntryPick}
+                    addNewEntry={this.addNewEntry}
+                    deleteEntry={this.deleteEntry}
+                />
                 <Editor
                     title={title}
                     text={text}
