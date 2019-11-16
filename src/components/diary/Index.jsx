@@ -111,16 +111,13 @@ class Diary extends React.Component {
 
     onInputChange(e) {
         const { name, value } = e.target;
-        const { title, text } = this.state;
 
         this.setState(
             {
                 [name]: value
             },
             () => {
-                if (title && text) {
-                    this.submitEntry();
-                }
+                this.submitEntry();
             }
         );
     }
