@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Post } from "../helpers/fetch";
+import endpoints from "components/shared/endpoints";
+import { Post } from "components/shared/helpers/fetch";
 import {
     Overlay,
     ModalWrapper,
@@ -38,7 +39,7 @@ export default class LoginModal extends Component {
         e.preventDefault();
         const { email, password } = this.state;
 
-        const url = "/users/login";
+        const url = endpoints.users.login;
         const body = {
             email,
             password
