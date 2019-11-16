@@ -1,5 +1,6 @@
 import React from "react";
-import { Get, Post } from "../shared/helpers/fetch";
+import endpoints from "../shared/endpoints";
+import { Post } from "../shared/helpers/fetch";
 import { debounce } from "debounce";
 import Navbar from "./Navbar";
 import Editor from "./Editor";
@@ -34,7 +35,7 @@ class Diary extends React.Component {
             auth: { email }
         } = this.props;
 
-        const url = "users/getUserEntries";
+        const url = endpoints.diary.getEntries;
         const body = {
             email
         };
@@ -59,7 +60,7 @@ class Diary extends React.Component {
             auth: { email }
         } = this.props;
 
-        const url = "users/createEntry";
+        const url = endpoints.diary.createEntry;
         const body = {
             email,
             entry: {
@@ -88,7 +89,7 @@ class Diary extends React.Component {
             auth: { email }
         } = this.props;
 
-        const url = "users/deleteEntry";
+        const url = endpoints.diary.deleteEntry;
         const body = {
             email,
             entryId: entry.id
@@ -135,7 +136,7 @@ class Diary extends React.Component {
             const {
                 auth: { email }
             } = this.props;
-            const url = "users/postEntry";
+            const url = endpoints.diary.submitEntry;
             const body = {
                 email,
                 entry: {

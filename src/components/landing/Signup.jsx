@@ -1,4 +1,5 @@
 import React from "react";
+import endpoints from "../shared/endpoints";
 import { Post } from "../shared/helpers/fetch";
 import styled from "styled-components";
 
@@ -80,7 +81,7 @@ class Signup extends React.Component {
         e.preventDefault();
         const { name, email, password } = this.state;
 
-        const url = "/users/register";
+        const url = endpoints.users.register;
         const body = {
             name,
             email,

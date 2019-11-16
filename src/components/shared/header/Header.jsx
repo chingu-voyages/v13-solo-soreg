@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Modal from "./LoginModal";
 import { Wrapper, Logo, LoginSignupButton, Container } from "./styles";
 import LoginModal from "./LoginModal";
 
