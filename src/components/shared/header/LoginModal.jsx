@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import endpoints from "../endpoints";
-import { Post } from "../helpers/fetch";
+import endpoints from "components/shared/endpoints";
+import { Post } from "components/shared/helpers/fetch";
 import {
     Overlay,
     ModalWrapper,

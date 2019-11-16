@@ -1,6 +1,6 @@
 import React from "react";
-import endpoints from "../shared/endpoints";
-import { Post } from "../shared/helpers/fetch";
+import endpoints from "components/shared/endpoints";
+import { Post } from "components/shared/helpers/fetch";
 import { debounce } from "debounce";
 import Navbar from "./Navbar";
 import Editor from "./Editor";
