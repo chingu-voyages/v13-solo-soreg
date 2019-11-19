@@ -1,5 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import CKEditor from "@ckeditor/ckeditor5-react";
+import InlineEditor from "@ckeditor/ckeditor5-build-inline";
+import "./editorstyles.scss";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -29,21 +32,15 @@ const TextArea = styled.textarea`
     resize: none;
 `;
 
-const DiaryEditor = ({ title, text, onChange } = props) => {
+const DiaryEditor = ({ text, onInputChange } = props) => {
+    const data = text || "<p>Write your diary entry here!</p>";
     return (
         <Wrapper>
             <EditorWrapper>
-                <TitleInput
-                    name="title"
-                    placeholder="Title"
-                    value={title}
-                    onChange={onChange}
-                />
-                <TextArea
-                    name="text"
-                    placeholder="Entry"
-                    value={text}
-                    onChange={onChange}
+                <CKEditor
+                    editor={InlineEditor}
+                    data={data}
+                    onChange={(event, editor) => onInputChange(event, editor)}
                 />
             </EditorWrapper>
         </Wrapper>

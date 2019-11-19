@@ -110,17 +110,10 @@ class Diary extends React.Component {
             .catch(err => console.error(err));
     }
 
-    onInputChange(e) {
-        const { name, value } = e.target;
+    onInputChange(event, editor) {
+        const text = editor.getData();
 
-        this.setState(
-            {
-                [name]: value
-            },
-            () => {
-                this.submitEntry();
-            }
-        );
+        this.submitEntry(text);
     }
 
     onEntryPick(entry) {
@@ -129,8 +122,8 @@ class Diary extends React.Component {
         });
     }
 
-    submitEntry() {
-        const { id, title, text } = this.state;
+    submitEntry(text) {
+        const { id, title } = this.state;
 
         if (id) {
             const {
@@ -145,6 +138,7 @@ class Diary extends React.Component {
                     text
                 }
             };
+
             Post(url, body)
                 .then(response => {
                     if (response.status >= 400) {
@@ -175,7 +169,7 @@ class Diary extends React.Component {
                 <Editor
                     title={title}
                     text={text}
-                    onChange={this.onInputChange}
+                    onInputChange={this.onInputChange}
                 />
             </Wrapper>
         );
