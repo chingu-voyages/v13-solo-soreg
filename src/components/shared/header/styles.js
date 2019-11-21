@@ -3,8 +3,8 @@ import { breakpoints } from "../../../frontend-config";
 
 // Header
 export const Wrapper = styled.div`
-    height: 80px;
-    background: ${props => props.theme.primary.darkblue};
+    height: 60px;
+    background: #52869c;
 `;
 
 export const Container = styled.div`

@@ -24,6 +24,7 @@ class Diary extends React.Component {
         };
 
         this.addNewEntry = this.addNewEntry.bind(this);
+        this.onTitleChange = this.onTitleChange.bind(this);
         this.onInputChange = this.onInputChange.bind(this);
         this.submitEntry = debounce(this.submitEntry.bind(this), 500);
         this.onEntryPick = this.onEntryPick.bind(this);
@@ -64,7 +65,7 @@ class Diary extends React.Component {
         const body = {
             email,
             entry: {
-                title: "New title",
+                title: "New diary entry",
                 text: ""
             }
         };
@@ -108,6 +109,14 @@ class Diary extends React.Component {
                 });
             })
             .catch(err => console.error(err));
+    }
+
+    onTitleChange(e) {
+        const { value } = e.target;
+
+        this.setState({
+            title: value
+        });
     }
 
     onInputChange(event, editor) {
@@ -169,6 +178,7 @@ class Diary extends React.Component {
                 <Editor
                     title={title}
                     text={text}
+                    onTitleChange={this.onTitleChange}
                     onInputChange={this.onInputChange}
                 />
             </Wrapper>
