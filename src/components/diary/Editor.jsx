@@ -7,8 +7,8 @@ import "./editorstyles.scss";
 const Wrapper = styled.div`
     width: 100%;
     height: 100%;
-    padding: 30px;
-    background: #9c9c9c;
+    padding: 60px 180px 0;
+    background: #e4e4e4;
 `;
 
 const EditorWrapper = styled.div`
@@ -16,13 +16,17 @@ const EditorWrapper = styled.div`
     flex-direction: column;
     height: 100%;
     align-items: center;
-    background: #f7f7f7;
-    padding: 20px;
+    background: #fff;
+    padding: 80px 100px 0;
 `;
 
 const TitleInput = styled.input`
-    width: 500px;
-    height: 30px;
+    width: 100%;
+    font-size: 40px;
+    height: 45px;
+    text-align: center;
+    border: none;
+    outline: 0;
 `;
 
 const TextArea = styled.textarea`
@@ -32,11 +36,12 @@ const TextArea = styled.textarea`
     resize: none;
 `;
 
-const DiaryEditor = ({ text, onInputChange } = props) => {
+const DiaryEditor = ({ title, text, onInputChange, onTitleChange } = props) => {
     const data = text || "<p>Write your diary entry here!</p>";
     return (
         <Wrapper>
             <EditorWrapper>
+                <TitleInput value={title} onChange={onTitleChange} />
                 <CKEditor
                     editor={InlineEditor}
                     data={data}

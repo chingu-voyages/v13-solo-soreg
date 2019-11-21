@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`
     justify-content: center;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 60px);
     width: 100%;
 `;
 

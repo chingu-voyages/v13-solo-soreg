@@ -4,7 +4,7 @@ import styled from "styled-components";
 const NavbarWrapper = styled.div`
     width: 300px;
     height: 100%;
-    background: #3c3838;
+    background: #67696d;
 `;
 
 const NavbarTitle = styled.div`
@@ -12,8 +12,7 @@ const NavbarTitle = styled.div`
     align-items: center;
     justify-content: center;
     padding: 20px 0;
-    background: #7b7b7b;
-    color: white;
+    background: #c4c4c4;
     font-size: 18px;
     font-weight: bold;
     text-transform: uppercase;
@@ -22,8 +21,7 @@ const NavbarTitle = styled.div`
 const CreateButton = styled.div`
     padding: 15px 10px;
     background: #d0d0d0;
-    border-top: 1px solid #fff;
-    border-right: 1px solid #fff;
+    border-top: 1px solid #67696d;
     cursor: pointer;
     transition: all ease 0.1s;
 
@@ -32,20 +30,19 @@ const CreateButton = styled.div`
     }
 
     &:last-of-type {
-        border-bottom: 1px solid #fff;
+        border-bottom: 1px solid #67696d;
     }
 `;
 
 const Entry = styled.div`
     display: flex;
     align-items: center;
-    background: #a2a2a2;
-    border-top: 1px solid #fff;
-    border-right: 1px solid #fff;
+    background: #d0d0d0;
+    border-top: 1px solid #67696d;
     cursor: pointer;
 
     &:last-of-type {
-        border-bottom: 1px solid #fff;
+        border-bottom: 1px solid #67696d;
     }
 `;
 
@@ -63,7 +60,7 @@ const EntryDelete = styled.div`
     flex: 1;
     padding: 15px 10px;
     height: 100%;
-    border-left: 1px solid #fff;
+    border-left: 1px solid #67696d;
     transition: all ease 0.1s;
 
     &:hover {
