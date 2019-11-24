@@ -51,6 +51,10 @@ export const LoginSignupButton = styled.button`
 `;
 
 // Login Modal
+export const ModalWrapper = styled.div`
+    padding: 20px 0 10px;
+`;
+
 export const ModalHeadline = styled.div`
     text-align: center;
     font-size: 40px;

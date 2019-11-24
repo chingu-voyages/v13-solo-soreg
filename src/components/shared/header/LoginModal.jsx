@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import endpoints from "components/shared/endpoints";
 import { Post } from "components/shared/helpers/fetch";
 import {
+    ModalWrapper,
     ModalHeadline,
     ModalForm,
     ModalInput,
@@ -69,7 +70,7 @@ export default class LoginModal extends Component {
         const { email, password, error } = this.state;
 
         return (
-            <>
+            <ModalWrapper>
                 <ModalHeadline>Login</ModalHeadline>
                 <ModalForm onSubmit={this.onSubmit}>
                     <ModalInput
@@ -93,7 +94,7 @@ export default class LoginModal extends Component {
                     {error && <ErrorMessage>{error}</ErrorMessage>}
                     <ModalLoginButton type="submit">Login</ModalLoginButton>
                 </ModalForm>
-            </>
+            </ModalWrapper>
         );
     }
 }
