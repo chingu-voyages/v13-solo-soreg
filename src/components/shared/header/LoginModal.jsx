@@ -2,14 +2,10 @@ import React, { Component } from "react";
 import endpoints from "components/shared/endpoints";
 import { Post } from "components/shared/helpers/fetch";
 import {
-    Overlay,
-    ModalWrapper,
-    ModalContainer,
     ModalHeadline,
     ModalForm,
     ModalInput,
     ModalLoginButton,
-    ModalCloseIcon,
     ErrorMessage
 } from "./styles";
 
@@ -71,38 +67,33 @@ export default class LoginModal extends Component {
 
     render() {
         const { email, password, error } = this.state;
-        const { active, closeModal } = this.props;
 
         return (
-            <ModalContainer active={active}>
-                <Overlay onClick={closeModal} />
-                <ModalWrapper>
-                    <ModalCloseIcon onClick={closeModal} />
-                    <ModalHeadline>Login</ModalHeadline>
-                    <ModalForm onSubmit={this.onSubmit}>
-                        <ModalInput
-                            name="email"
-                            value={email}
-                            type="text"
-                            placeholder="email"
-                            onChange={this.onInputChange}
-                            required
-                            autoComplete="login_email"
-                        />
-                        <ModalInput
-                            name="password"
-                            value={password}
-                            type="password"
-                            placeholder="Password"
-                            onChange={this.onInputChange}
-                            required
-                            autoComplete="login_password"
-                        />
-                        {error && <ErrorMessage>{error}</ErrorMessage>}
-                        <ModalLoginButton type="submit">Login</ModalLoginButton>
-                    </ModalForm>
-                </ModalWrapper>
-            </ModalContainer>
+            <>
+                <ModalHeadline>Login</ModalHeadline>
+                <ModalForm onSubmit={this.onSubmit}>
+                    <ModalInput
+                        name="email"
+                        value={email}
+                        type="text"
+                        placeholder="email"
+                        onChange={this.onInputChange}
+                        required
+                        autoComplete="login_email"
+                    />
+                    <ModalInput
+                        name="password"
+                        value={password}
+                        type="password"
+                        placeholder="Password"
+                        onChange={this.onInputChange}
+                        required
+                        autoComplete="login_password"
+                    />
+                    {error && <ErrorMessage>{error}</ErrorMessage>}
+                    <ModalLoginButton type="submit">Login</ModalLoginButton>
+                </ModalForm>
+            </>
         );
     }
 }

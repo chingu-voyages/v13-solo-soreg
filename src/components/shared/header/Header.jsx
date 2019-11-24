@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { renderModal } from "store/actions";
+import LoginModal from "./LoginModal";
 import { Wrapper, Logo, LoginSignupButton, Container } from "./styles";
-
-const Login = () => {
-    return <div>Login Placeholder</div>;
-};
 
 class Header extends Component {
     constructor(props) {
@@ -22,7 +19,7 @@ class Header extends Component {
     openModal() {
         const { renderModal } = this.props;
         renderModal({
-            ModalComponent: () => <Login />
+            ModalComponent: () => <LoginModal />
         });
     }
 
