@@ -3,11 +3,18 @@ export const initialState = {
 };
 
 export const RENDER_MODAL = "RENDER_MODAL";
+export const CLEAR_MODAL = "CLEAR_MODAL";
+
 export const actions = {};
 
 actions[RENDER_MODAL] = (state, action) => ({
     ...state,
     ModalComponent: action.ModalComponent
+});
+
+actions[CLEAR_MODAL] = state => ({
+    ...state,
+    ModalComponent: null
 });
 
 export default function reducer(state = initialState, action) {

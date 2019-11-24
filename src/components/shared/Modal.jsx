@@ -1,5 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { clearModal } from "store/actions";
 import styled from "styled-components";
 
 export const ModalContainer = styled.div`
@@ -57,12 +58,13 @@ export const ModalCloseIcon = styled.div`
 
 const Modal = () => {
     const ModalComponent = useSelector(state => state.ModalComponent);
+    const dispatch = useDispatch();
 
     return ModalComponent ? (
         <ModalContainer>
-            <Overlay />
+            <Overlay onClick={() => dispatch(clearModal())} />
             <ModalWrapper>
-                <ModalCloseIcon />
+                <ModalCloseIcon onClick={() => dispatch(clearModal())} />
                 <ModalComponent />
             </ModalWrapper>
         </ModalContainer>
