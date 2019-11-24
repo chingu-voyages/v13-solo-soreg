@@ -1,8 +1,13 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { renderModal } from "store/actions";
 import { Wrapper, Logo, LoginSignupButton, Container } from "./styles";
-import LoginModal from "./LoginModal";
 
-export default class Header extends Component {
+const Login = () => {
+    return <div>Login Placeholder</div>;
+};
+
+class Header extends Component {
     constructor(props) {
         super(props);
 
@@ -11,19 +16,13 @@ export default class Header extends Component {
         };
 
         this.openModal = this.openModal.bind(this);
-        this.closeModal = this.closeModal.bind(this);
         this.doSignOut = this.doSignOut.bind(this);
     }
 
     openModal() {
-        this.setState({
-            modalOpen: true
-        });
-    }
-
-    closeModal() {
-        this.setState({
-            modalOpen: false
+        const { renderModal } = this.props;
+        renderModal({
+            ModalComponent: () => <Login />
         });
     }
 
@@ -34,7 +33,6 @@ export default class Header extends Component {
     }
 
     render() {
-        const { modalOpen } = this.state;
         const { auth } = this.props;
 
         return (
@@ -51,8 +49,13 @@ export default class Header extends Component {
                         </LoginSignupButton>
                     )}
                 </Container>
-                <LoginModal active={modalOpen} closeModal={this.closeModal} />
             </Wrapper>
         );
     }
 }
+
+const mapDispatchToProps = {
+    renderModal
+};
+
+export default connect(null, mapDispatchToProps)(Header);

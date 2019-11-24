@@ -1,5 +1,5 @@
 export const initialState = {
-    modalContent: null
+    ModalComponent: null
 };
 
 export const RENDER_MODAL = "RENDER_MODAL";
@@ -7,7 +7,7 @@ export const actions = {};
 
 actions[RENDER_MODAL] = (state, action) => ({
     ...state,
-    modalContent: action.modalContent
+    ModalComponent: action.ModalComponent
 });
 
 export default function reducer(state = initialState, action) {

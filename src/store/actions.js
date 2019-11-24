@@ -1,8 +1,8 @@
 import { RENDER_MODAL } from "./reducer";
 
-export const renderModal = content => {
+export function renderModal({ ModalComponent }) {
     return {
         type: RENDER_MODAL,
-        modalContent: content
+        ModalComponent
     };
-};
+}
