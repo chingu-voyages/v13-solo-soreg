@@ -1,6 +1,7 @@
 import React from "react";
 import Diary from "./diary/Index";
 import Header from "./shared/header/Header";
+import Modal from "./shared/Modal";
 import AuthHelper from "./auth/AuthHelper";
 import styled from "styled-components";
 
@@ -32,6 +33,7 @@ export default class ContentWrapper extends React.Component {
             <div>
                 <Header auth={auth} />
                 <Wrapper>
+                    <Modal />
                     {/* Temp - will be handled dynamically in a later update */}
                     {auth && auth.loggedIn ? (
                         <Diary auth={auth} />
