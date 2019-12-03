@@ -165,12 +165,13 @@ class Diary extends React.Component {
     }
 
     render() {
-        const { title, text, entries } = this.state;
+        const { title, text, id, entries } = this.state;
 
         return (
             <Wrapper>
                 <Navbar
                     entries={entries}
+                    selectedEntryId={id}
                     onEntryPick={this.onEntryPick}
                     addNewEntry={this.addNewEntry}
                     deleteEntry={this.deleteEntry}
