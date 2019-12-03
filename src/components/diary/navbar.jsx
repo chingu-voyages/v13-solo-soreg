@@ -40,7 +40,7 @@ const CreateButton = styled.div`
 const Entry = styled.div`
     display: flex;
     align-items: center;
-    background: #d0d0d0;
+    background: ${props => (props.selected ? "#bbbbbb" : "#d0d0d0")};
     border-top: 1px solid #67696d;
     cursor: pointer;
 
@@ -96,7 +96,12 @@ class Navbar extends React.Component {
     }
 
     render() {
-        const { entries, onEntryPick, addNewEntry } = this.props;
+        const {
+            entries,
+            selectedEntryId,
+            onEntryPick,
+            addNewEntry
+        } = this.props;
 
         return (
             <NavbarWrapper>
@@ -106,7 +111,10 @@ class Navbar extends React.Component {
                 </CreateButton>
                 {entries &&
                     entries.map(entry => (
-                        <Entry key={entry.id}>
+                        <Entry
+                            key={entry.id}
+                            selected={entry.id === selectedEntryId}
+                        >
                             <EntryTitle onClick={() => onEntryPick(entry)}>
                                 {entry.title}
                             </EntryTitle>

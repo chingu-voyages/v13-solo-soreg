@@ -12,6 +12,8 @@ const Wrapper = styled.div`
     height: 100%;
 `;
 
+const EditorPlaceholder = styled.div``;
+
 class Diary extends React.Component {
     constructor(props) {
         super(props);
@@ -20,7 +22,7 @@ class Diary extends React.Component {
             id: null,
             title: "",
             text: "",
-            entries: null
+            entries: []
         };
 
         this.addNewEntry = this.addNewEntry.bind(this);
@@ -49,9 +51,15 @@ class Diary extends React.Component {
                 return response.json();
             })
             .then(json => {
-                this.setState({
-                    entries: json.entries
-                });
+                const { entries } = json;
+                if (entries && entries.length > 0) {
+                    this.setState({
+                        entries,
+                        id: entries[0].id,
+                        title: entries[0].title,
+                        text: entries[0].text
+                    });
+                }
             })
             .catch(err => console.error(err));
     }
@@ -78,8 +86,13 @@ class Diary extends React.Component {
                 return response.json();
             })
             .then(json => {
+                const { entries } = json;
+
                 this.setState({
-                    entries: json.entries
+                    entries: entries,
+                    id: (entries[0] && entries[0].id) || null,
+                    title: (entries[0] && entries[0].title) || null,
+                    text: (entries[0] && entries[0].text) || null
                 });
             })
             .catch(err => console.error(err));
@@ -104,8 +117,13 @@ class Diary extends React.Component {
                 return response.json();
             })
             .then(json => {
+                const { entries } = json;
+
                 this.setState({
-                    entries: json.entries
+                    entries,
+                    id: (entries[0] && entries[0].id) || null,
+                    title: (entries[0] && entries[0].title) || null,
+                    text: (entries[0] && entries[0].text) || null
                 });
             })
             .catch(err => console.error(err));
@@ -165,22 +183,34 @@ class Diary extends React.Component {
     }
 
     render() {
-        const { title, text, entries } = this.state;
+        const { title, text, id, entries } = this.state;
+        const hasEntries = entries && entries.length > 0;
 
         return (
             <Wrapper>
                 <Navbar
                     entries={entries}
+                    selectedEntryId={id}
                     onEntryPick={this.onEntryPick}
                     addNewEntry={this.addNewEntry}
                     deleteEntry={this.deleteEntry}
                 />
-                <Editor
-                    title={title}
-                    text={text}
-                    onTitleChange={this.onTitleChange}
-                    onInputChange={this.onInputChange}
-                />
+                {hasEntries > 0 && id ? (
+                    <Editor
+                        title={title}
+                        text={text}
+                        onTitleChange={this.onTitleChange}
+                        onInputChange={this.onInputChange}
+                    />
+                ) : hasEntries ? (
+                    <EditorPlaceholder>
+                        Select an entry to start writing
+                    </EditorPlaceholder>
+                ) : (
+                    <EditorPlaceholder>
+                        Create an entry to start
+                    </EditorPlaceholder>
+                )}
             </Wrapper>
         );
     }
