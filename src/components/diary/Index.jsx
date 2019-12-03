@@ -22,7 +22,7 @@ class Diary extends React.Component {
             id: null,
             title: "",
             text: "",
-            entries: null
+            entries: []
         };
 
         this.addNewEntry = this.addNewEntry.bind(this);
@@ -51,9 +51,15 @@ class Diary extends React.Component {
                 return response.json();
             })
             .then(json => {
-                this.setState({
-                    entries: json.entries
-                });
+                const { entries } = json;
+                if (entries && entries.length > 0) {
+                    this.setState({
+                        entries,
+                        id: entries[0].id,
+                        title: entries[0].title,
+                        text: entries[0].text
+                    });
+                }
             })
             .catch(err => console.error(err));
     }
@@ -80,8 +86,13 @@ class Diary extends React.Component {
                 return response.json();
             })
             .then(json => {
+                const { entries } = json;
+
                 this.setState({
-                    entries: json.entries
+                    entries: entries,
+                    id: (entries[0] && entries[0].id) || null,
+                    title: (entries[0] && entries[0].title) || null,
+                    text: (entries[0] && entries[0].text) || null
                 });
             })
             .catch(err => console.error(err));
@@ -106,8 +117,13 @@ class Diary extends React.Component {
                 return response.json();
             })
             .then(json => {
+                const { entries } = json;
+
                 this.setState({
-                    entries: json.entries
+                    entries,
+                    id: (entries[0] && entries[0].id) || null,
+                    title: (entries[0] && entries[0].title) || null,
+                    text: (entries[0] && entries[0].text) || null
                 });
             })
             .catch(err => console.error(err));
