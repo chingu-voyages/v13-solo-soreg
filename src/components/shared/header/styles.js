@@ -11,7 +11,7 @@ export const Container = styled.div`
     position: relative;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     max-width: ${breakpoints("maxWidth")};
     margin: 0 auto;
     height: 100%;
@@ -23,8 +23,6 @@ export const Logo = styled.div`
 `;
 
 export const LoginSignupButton = styled.button`
-    position: absolute;
-    transform: translateY(-50%);
     top: 50%;
     right: 0;
     border: none;
@@ -37,15 +35,15 @@ export const LoginSignupButton = styled.button`
     background: ${props => props.theme.primary.brown};
     color: ${props => props.theme.header.fg};
     transition: all ease 0.3s;
-    box-shadow: 2px 3px 0 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.3);
 
     &:hover {
-        transform: translateY(calc(-50% - 2px));
+        transform: translateY(-2px);
         box-shadow: 4px 5px 3px 0 rgba(0, 0, 0, 0.3);
     }
 
     &:active {
-        transform: translateY(calc(-50% + 1px));
+        transform: translateY(1px);
         box-shadow: 1px 2px 0 0 rgba(0, 0, 0, 0.2);
     }
 `;
