@@ -4,6 +4,14 @@ import "./reset.css";
 import { ThemeProvider } from "styled-components";
 import ContentWrapper from "./components/ContentWrapper";
 import Landing from "./components/landing/Landing";
+import reducer from "./store/reducer";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+
+const store = createStore(
+    reducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 const theme = {
     primary: {
@@ -20,8 +28,10 @@ const theme = {
 };
 
 ReactDOM.render(
-    <ThemeProvider theme={theme}>
-        <ContentWrapper children={<Landing />} />
-    </ThemeProvider>,
+    <Provider store={store}>
+        <ThemeProvider theme={theme}>
+            <ContentWrapper children={<Landing />} />
+        </ThemeProvider>
+    </Provider>,
     document.querySelector("#app")
 );

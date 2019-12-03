@@ -1,4 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
+import { renderModal, clearModal } from "store/actions";
+import DeleteModal from "./DeleteModal";
 import styled from "styled-components";
 
 const NavbarWrapper = styled.div`
@@ -68,24 +71,60 @@ const EntryDelete = styled.div`
     }
 `;
 
-const Navbar = ({ entries, onEntryPick, addNewEntry, deleteEntry } = props) => {
-    return (
-        <NavbarWrapper>
-            <NavbarTitle>Your entries</NavbarTitle>
-            <CreateButton onClick={addNewEntry}>Create new entry</CreateButton>
-            {entries &&
-                entries.map(entry => (
-                    <Entry key={entry.id}>
-                        <EntryTitle onClick={() => onEntryPick(entry)}>
-                            {entry.title}
-                        </EntryTitle>
-                        <EntryDelete onClick={() => deleteEntry(entry)}>
-                            Delete
-                        </EntryDelete>
-                    </Entry>
-                ))}
-        </NavbarWrapper>
-    );
+class Navbar extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.onDeleteEntry = this.onDeleteEntry.bind(this);
+        this.onDeleteAccept = this.onDeleteAccept.bind(this);
+    }
+
+    onDeleteEntry(entry) {
+        const { renderModal } = this.props;
+        renderModal({
+            ModalComponent: () => (
+                <DeleteModal onDelete={() => this.onDeleteAccept(entry)} />
+            )
+        });
+    }
+
+    onDeleteAccept(entry) {
+        const { clearModal, deleteEntry } = this.props;
+        clearModal();
+        console.log(this.props);
+        deleteEntry(entry);
+    }
+
+    render() {
+        const { entries, onEntryPick, addNewEntry } = this.props;
+
+        return (
+            <NavbarWrapper>
+                <NavbarTitle>Your entries</NavbarTitle>
+                <CreateButton onClick={addNewEntry}>
+                    Create new entry
+                </CreateButton>
+                {entries &&
+                    entries.map(entry => (
+                        <Entry key={entry.id}>
+                            <EntryTitle onClick={() => onEntryPick(entry)}>
+                                {entry.title}
+                            </EntryTitle>
+                            <EntryDelete
+                                onClick={() => this.onDeleteEntry(entry)}
+                            >
+                                Delete
+                            </EntryDelete>
+                        </Entry>
+                    ))}
+            </NavbarWrapper>
+        );
+    }
+}
+
+const mapDispatchToProps = {
+    renderModal,
+    clearModal
 };
 
-export default Navbar;
+export default connect(null, mapDispatchToProps)(Navbar);
