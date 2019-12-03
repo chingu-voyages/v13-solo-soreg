@@ -12,6 +12,8 @@ const Wrapper = styled.div`
     height: 100%;
 `;
 
+const EditorPlaceholder = styled.div``;
+
 class Diary extends React.Component {
     constructor(props) {
         super(props);
@@ -166,6 +168,7 @@ class Diary extends React.Component {
 
     render() {
         const { title, text, id, entries } = this.state;
+        const hasEntries = entries && entries.length > 0;
 
         return (
             <Wrapper>
@@ -176,12 +179,22 @@ class Diary extends React.Component {
                     addNewEntry={this.addNewEntry}
                     deleteEntry={this.deleteEntry}
                 />
-                <Editor
-                    title={title}
-                    text={text}
-                    onTitleChange={this.onTitleChange}
-                    onInputChange={this.onInputChange}
-                />
+                {hasEntries > 0 && id ? (
+                    <Editor
+                        title={title}
+                        text={text}
+                        onTitleChange={this.onTitleChange}
+                        onInputChange={this.onInputChange}
+                    />
+                ) : hasEntries ? (
+                    <EditorPlaceholder>
+                        Select an entry to start writing
+                    </EditorPlaceholder>
+                ) : (
+                    <EditorPlaceholder>
+                        Create an entry to start
+                    </EditorPlaceholder>
+                )}
             </Wrapper>
         );
     }
