@@ -2,8 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./reset.css";
 import { ThemeProvider } from "styled-components";
-import ContentWrapper from "./components/ContentWrapper";
-import Landing from "./components/landing/Landing";
+import Router from "./router";
 import reducer from "./store/reducer";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
@@ -30,7 +29,7 @@ const theme = {
 ReactDOM.render(
     <Provider store={store}>
         <ThemeProvider theme={theme}>
-            <ContentWrapper children={<Landing />} />
+            <Router />
         </ThemeProvider>
     </Provider>,
     document.querySelector("#app")
