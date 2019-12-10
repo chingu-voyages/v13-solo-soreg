@@ -4,7 +4,12 @@ const bodyParser = require("body-parser");
 const app = express();
 const path = require("path");
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 const port = process.env.PORT || 3001;
+
+dotenv.config({
+    path: ".env"
+});
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -14,10 +19,14 @@ app.use(
     })
 );
 
-const mongoURI = "mongodb://localhost:27017/personaldiary";
+const DB = process.env.DATABASE;
 
 mongoose
-    .connect(mongoURI, { useNewUrlParser: true })
+    .connect(DB, {
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useFindAndModify: false
+    })
     .then(() => console.log("MongoDB connected"))
     .catch(err => console.error(err));
 

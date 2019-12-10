@@ -91,7 +91,6 @@ class Navbar extends React.Component {
     onDeleteAccept(entry) {
         const { clearModal, deleteEntry } = this.props;
         clearModal();
-        console.log(this.props);
         deleteEntry(entry);
     }
 
