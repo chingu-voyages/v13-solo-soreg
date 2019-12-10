@@ -2,7 +2,6 @@ import React from "react";
 import Diary from "./diary/Index";
 import Header from "./shared/header/Header";
 import Modal from "./shared/Modal";
-import AuthHelper from "./auth/AuthHelper";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -14,16 +13,10 @@ const Wrapper = styled.div`
 export default class ContentWrapper extends React.Component {
     constructor(props) {
         super(props);
-        this.Auth = new AuthHelper();
-
-        this.state = {
-            auth: this.Auth.getCurrentUser()
-        };
     }
 
     render() {
-        const { auth } = this.state;
-        const { children } = this.props;
+        const { children, auth } = this.props;
 
         const childrenWithProps = React.Children.map(children, child =>
             React.cloneElement(child, { auth })
@@ -34,12 +27,7 @@ export default class ContentWrapper extends React.Component {
                 <Header auth={auth} />
                 <Wrapper>
                     <Modal />
-                    {/* Temp - will be handled dynamically in a later update */}
-                    {auth && auth.loggedIn ? (
-                        <Diary auth={auth} />
-                    ) : (
-                        childrenWithProps
-                    )}
+                    {childrenWithProps}
                 </Wrapper>
             </div>
         );
