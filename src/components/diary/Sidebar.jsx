@@ -4,13 +4,13 @@ import { renderModal, clearModal } from "store/actions";
 import DeleteModal from "./DeleteModal";
 import styled from "styled-components";
 
-const NavbarWrapper = styled.div`
+const SidebarWrapper = styled.div`
     width: 300px;
     height: 100%;
     background: #67696d;
 `;
 
-const NavbarTitle = styled.div`
+const SidebarTitle = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
@@ -71,7 +71,7 @@ const EntryDelete = styled.div`
     }
 `;
 
-class Navbar extends React.Component {
+class Sidebar extends React.Component {
     constructor(props) {
         super(props);
 
@@ -103,8 +103,8 @@ class Navbar extends React.Component {
         } = this.props;
 
         return (
-            <NavbarWrapper>
-                <NavbarTitle>Your entries</NavbarTitle>
+            <SidebarWrapper>
+                <SidebarTitle>Your entries</SidebarTitle>
                 <CreateButton onClick={addNewEntry}>
                     Create new entry
                 </CreateButton>
@@ -124,7 +124,7 @@ class Navbar extends React.Component {
                             </EntryDelete>
                         </Entry>
                     ))}
-            </NavbarWrapper>
+            </SidebarWrapper>
         );
     }
 }
@@ -134,4 +134,4 @@ const mapDispatchToProps = {
     clearModal
 };
 
-export default connect(null, mapDispatchToProps)(Navbar);
+export default connect(null, mapDispatchToProps)(Sidebar);

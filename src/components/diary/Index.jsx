@@ -2,7 +2,7 @@ import React from "react";
 import endpoints from "components/shared/endpoints";
 import { Post } from "components/shared/helpers/fetch";
 import { debounce } from "debounce";
-import Navbar from "./Navbar";
+import Sidebar from "./Sidebar";
 import Editor from "./Editor";
 import styled from "styled-components";
 
@@ -188,7 +188,7 @@ class Diary extends React.Component {
 
         return (
             <Wrapper>
-                <Navbar
+                <Sidebar
                     entries={entries}
                     selectedEntryId={id}
                     onEntryPick={this.onEntryPick}
